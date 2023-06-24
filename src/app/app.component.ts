@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
+
 declare var $: any
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,13 +10,13 @@ declare var $: any
 export class AppComponent implements OnInit {
   title = 'ECommerceClient';
 
-  constructor(private toastr: ToastrService) {
+  constructor() {
   }
 
   ngOnInit(): void {
-    this.showSuccess();
-  }
-  showSuccess() {
-    this.toastr.success('Hello world!', 'Toastr fun!');
   }
 }
+
+$.get("http://localhost:5153/api/Products", data => {
+  console.log(data);
+})

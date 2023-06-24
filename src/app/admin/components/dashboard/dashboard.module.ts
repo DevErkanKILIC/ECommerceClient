@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard.component';
 import { RouterModule } from '@angular/router';
+import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @NgModule({
@@ -16,11 +18,13 @@ import { RouterModule } from '@angular/router';
     ])
   ]
 })
-export class DashboardModule implements OnInit {
+export class DashboardModule extends BaseComponent implements OnInit {
 
-  constructor() { }
+  constructor(spinner: NgxSpinnerService) {
+    super(spinner)
+  }
 
   ngOnInit(): void {
-    
+    this.showSpinner(SpinnerType.ballSpinClockwiseFadeRotating);
   }
 }
