@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { Create_Product } from 'src/app/contracts/product/create_product';
@@ -15,6 +15,8 @@ export class CreateComponent extends BaseComponent {
   constructor(spinner: NgxSpinnerService, private alertify: AlertifyService, private productService: ProductService) {
     super(spinner);
   }
+
+  @Output() createdProduct: EventEmitter<Create_Product> = new EventEmitter();
 
   create(name: HTMLInputElement, stock: HTMLInputElement, price: HTMLInputElement) {
     this.showSpinner(SpinnerType.ballAtom);
@@ -49,7 +51,7 @@ export class CreateComponent extends BaseComponent {
       this.hideSpinner(SpinnerType.ballAtom);
       return;
     }
-    this.productService.create(create_product, () => this.hideSpinner(SpinnerType.ballAtom));
+    this.productService.create(create_product, () => this.createdProduct.emit(create_product));
   }
 
 }
