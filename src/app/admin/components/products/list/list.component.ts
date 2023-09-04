@@ -7,17 +7,20 @@ import { ListProduct } from 'src/app/contracts/product/list_product';
 import { AlertifyService, MessageType } from 'src/app/services/admin/alertify.service';
 import { ProductService } from 'src/app/services/common/models/product.service';
 
+declare var $: any;
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent extends BaseComponent implements OnInit {
+  [x: string]: any;
   constructor(spinner: NgxSpinnerService, private alertify: AlertifyService, private productService: ProductService) {
     super(spinner);
   }
 
-  displayedColumns: string[] = ['name', 'stock', 'price', 'createdDate', 'updatedDate'];
+  displayedColumns: string[] = ['name', 'stock', 'price', 'createdDate', 'updatedDate', 'edit', 'delete'];
   dataSource: MatTableDataSource<ListProduct> = null;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -36,5 +39,11 @@ export class ListComponent extends BaseComponent implements OnInit {
 
   pageChanged() {
     this.getProducts();
+  }
+
+  delete(id, event) {
+    alert(id);
+    const img: HTMLImageElement = event.srcElement;
+    $(img.parentElement.parentElement).fadeOut(2000);
   }
 }

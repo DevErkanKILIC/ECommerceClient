@@ -5,6 +5,7 @@ import { AlertifyService, MessageType, Position } from '../../admin/alertify.ser
 import { IProduct } from './IProduct';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { ListProduct } from 'src/app/contracts/product/list_product';
+import { Observable, firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -53,8 +54,12 @@ export class ProductService implements IProduct {
   update(product: Create_Product) {
     throw new Error('Method not implemented.');
   }
-  delete(product: Create_Product) {
-    throw new Error('Method not implemented.');
+  async delete(id: string) {
+    const deleteObservable: Observable<any> = this.httpClientService.delete<any>({
+      controller: "products"
+    }, { id });
+
+    await firstValueFrom(deleteObservable);
   }
 
 }
